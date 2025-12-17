@@ -1,0 +1,19 @@
+services:
+  ollama:
+    image: ollama/ollama:latest # 記事では特定のバージョンですが、最新版を使っても問題ありません
+    container_name: ollama
+    ports:
+      - "11434:11434" # OllamaのAPIポート
+    ipc: host
+    volumes:
+      # モデルファイルが入ったディレクトリをコンテナ内にマウント
+      - ./gemma-3-1b-it-qat-q4_0-gguf/:/work/gemma-3-1b-it-qat-q4_0-gguf
+      # Modelfileをコンテナ内にマウント
+      - ./Modelfile:/work/Modelfile:ro
+    working_dir: /work
+    # ヘルスチェック (オプションですが、安定性のために推奨)
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:11434/health"]
+      interval: 10s
+      timeout: 10s
+      retries: 30
