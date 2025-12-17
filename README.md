@@ -1,6 +1,6 @@
 # Learn_Local_LLM
 
-このプロジェクトは、Dockerを使用してローカル環境（CPUのみ）でLLM（Gemma-3-1b）を動かし、Pythonから非同期でチャットを行うためのサンプルです。
+このプロジェクトは、Dockerを使用してローカル環境（CPUのみ）でLLM（Gemma-3-1b）を動かし、Pythonでチャットを行うためのサンプルです。
 
 ## 構成
 
@@ -27,7 +27,7 @@
 Hugging FaceからGGUFモデルファイルをダウンロードしてください。
 * モデル: `gemma-3-1b-it-qat-q4_0-gguf`
 
-おすすめの手順はHugging Faceのトークンを利用してダウンロードする方法です。
+おすすめの方法はHugging Faceのトークンを利用してダウンロードする方法です。
 ```bash
 git clone https://<ユーザ名>:<トークン>@huggingface.co/google/gemma-3-1b-it-qat-q4_0-gguf
 ```
