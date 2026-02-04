@@ -1,22 +1,26 @@
 # Learn_Local_LLM
 
-このプロジェクトは、Dockerを使用してローカル環境（CPUのみ）でLLM（Gemma-3-1b）を動かし、Pythonでチャットを行うためのサンプルです。
+このプロジェクトは、Dockerを使用してローカル環境（CPUのみ）でLLMを動かし、Pythonでチャットを行うためのサンプルです。
 
 ## 構成
 
 * **Ollama**: Docker上で動作するLLM推論エンジン
-* **Gemma-3-1b**: Googleが提供する軽量なLLM（GGUF版）
+* **Gemma-3-1b**: Googleが提供する軽量なLLM（今回はこのモデルでチャットを行う想定で進めます。）
 * **Python Client**: `ollama` ライブラリを使用した非同期チャットUI
 
 ## ディレクトリ構成
 
 ```text
 .
-├── compose.yaml                 # Docker Composeファイル
-├── Modelfile                  　# モデルの設定とペルソナ定義
-├── async_chat.py              　# Pythonチャットクライアント
-├── README.md                  　# このファイル
-└── gemma-3-1b-it-qat-q4_0-gguf　# ダウンロードしたモデルファイル
+├── compose.yaml                # Docker Composeファイル (複数マウント設定済み)
+├── async_chat.py               # Pythonチャットクライアント (MODEL_NAMEを書き換えて使用)
+├── README.md                   # 本ファイル
+├── .gguf/                 # GGUFモデルファイルを格納するディレクトリ
+│   ├── gemma-3-1b-it-qat-q4_0-gguf
+│   └── # その他のモデルファイル
+└── modelfiles/                 # モデル定義ファイルを格納するディレクトリ
+    ├── Modelfile_gemma3        # Gemma 3 用の設定
+    └── # その他のモデルの設定
 
 ```
 
@@ -45,8 +49,9 @@ docker compose up -d
 マウントした `Modelfile` を基に、Ollama内にカスタムモデルを作成します。
 
 ```bash
-docker exec -it ollama ollama create gemma-3-1b -f Modelfile
+docker exec -it ollama ollama create gemma3 -f Modelfiles/Modelfile_gemma3
 ```
+async_chat.py内のMODEL_NAMEを"gemma3"に変更してください。（他の名前で作成したならその名前に合わせてください。）
 
 ### 4. Python環境の準備
 
