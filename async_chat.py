@@ -5,7 +5,7 @@ from ollama import AsyncClient
 OLLAMA_HOST_URL = "http://localhost:11434"
 
 # Dockerで作成したモデル名
-MODEL_NAME = "gemma-3-1b"
+MODEL_NAME = "gemma3"
 
 # チャット履歴を保持するリスト
 messages = []

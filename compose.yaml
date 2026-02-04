@@ -7,9 +7,9 @@ services:
     ipc: host
     volumes:
       # 複数のモデルファイルが入ったディレクトリをコンテナ内にマウント
-      - ./gguf_files:/work/gguf_files:ro
+      - ./.gguf:/work/.gguf:ro
       # 複数のModelfileを管理するフォルダをマウント
-      - ./modelfiles:/work/modelfiles:ro
+      - ./Modelfiles:/work/Modelfiles:ro
       # 作成したモデルを永続化するためのOllama内部領域
       - ollama_data:/root/.ollama
     working_dir: /work
