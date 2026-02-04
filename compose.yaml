@@ -1,19 +1,23 @@
 services:
   ollama:
-    image: ollama/ollama:latest # 記事では特定のバージョンですが、最新版を使っても問題ありません
+    image: ollama/ollama:latest
     container_name: ollama
     ports:
       - "11434:11434" # OllamaのAPIポート
     ipc: host
     volumes:
-      # モデルファイルが入ったディレクトリをコンテナ内にマウント
-      - ./gemma-3-1b-it-qat-q4_0-gguf/:/work/gemma-3-1b-it-qat-q4_0-gguf
-      # Modelfileをコンテナ内にマウント
-      - ./Modelfile:/work/Modelfile:ro
+      # 複数のモデルファイルが入ったディレクトリをコンテナ内にマウント
+      - ./gguf_files:/work/gguf_files:ro
+      # 複数のModelfileを管理するフォルダをマウント
+      - ./modelfiles:/work/modelfiles:ro
+      # 作成したモデルを永続化するためのOllama内部領域
+      - ollama_data:/root/.ollama
     working_dir: /work
-    # ヘルスチェック (オプションですが、安定性のために推奨)
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:11434/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:11434/api/tags"]
       interval: 10s
       timeout: 10s
       retries: 30
+
+volumes:
+  ollama_data:

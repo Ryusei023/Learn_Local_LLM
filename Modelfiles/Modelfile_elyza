@@ -1,0 +1,17 @@
+FROM ./elyza-japanese-llama-2-7b-instruct.q4_k_m.gguf
+
+# Llama 2 系の停止トークン設定
+PARAMETER stop [INST]
+PARAMETER stop [/INST]
+PARAMETER stop <<SYS>>
+PARAMETER stop <</SYS>>
+
+# ELYZA (Llama 2) 形式のテンプレート
+TEMPLATE """[INST] <<SYS>>
+{{ .System }}
+<</SYS>>
+
+{{ .Prompt }} [/INST]"""
+
+# 必要に応じてシステムプロンプトのデフォルトを設定
+SYSTEM """あなたは誠実で有能な日本人のアシスタントです。"""

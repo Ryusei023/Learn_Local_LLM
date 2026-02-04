@@ -3,6 +3,7 @@ from ollama import AsyncClient
 
 # OllamaサービスのURL。Dockerで起動した場合のデフォルトポートです。
 OLLAMA_HOST_URL = "http://localhost:11434"
+
 # Dockerで作成したモデル名
 MODEL_NAME = "gemma-3-1b"
 
